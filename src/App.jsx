@@ -1,18 +1,42 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 import Navbar from './components/Navbar';
 import PersonList from './pages/PersonList';
-import AddPerson from './pages/AddPerson';
+import AddPerson2 from './pages/AddPerson';
+import { useState } from 'react';
 
 function App() {
+  const [people, setPeople] = useState([]);
+  const [editId, setEditId] = useState(0);
+
+const setBasicId = basicId => {
+  setEditId(basicId);
+}
+
+  const listFromApi = () => {
+    fetch("https://retoolapi.dev/X6h7DS/data", {headers: {"Accept": "application/json"}})    //https://retoolapi.dev/ggtvjc/people
+        .then(async response => {
+            const data = await response.json();                
+          if (response.status === 200) {
+              setPeople(data);
+          } else if (response.status === 404) {
+              console.log(response.status);
+          } else {
+              console.log(data.message);
+          }
+      });
+  };
+
+
   return (
     <div>
       <header>
-        <Navbar/>
+        <Navbar setBasicId={setBasicId}/>
       </header>
       <main>
-        <PersonList/>
-        <AddPerson/>
+        <PersonList listazas={listFromApi} people={people} personEdit={(person) => setEditId(person)}/>
+        <AddPerson2 listazas={listFromApi} editId={editId} resetModositando={() => setEditId} setBasicId={setBasicId}/>
       </main>
     </div>
   );
@@ -21,4 +45,3 @@ function App() {
 export default App;
 
 
-// https://retoolapi.dev/ggtvjc/people

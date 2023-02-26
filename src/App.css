@@ -1,0 +1,21 @@
+body {
+  background-color: antiquewhite !important
+}
+
+.card{
+  width: 25rem;
+  background-color: bisque
+}
+
+.card-footer a{
+  text-decoration: none;
+}
+
+td {
+  padding-left: 10px;
+}
+
+#modal-bg {
+  background-color: lightgray;
+}
+
