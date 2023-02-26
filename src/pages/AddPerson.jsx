@@ -33,7 +33,6 @@ function AddPerson(props) {
                     setWebsite(data.website);
                     setSubscribed(data.subscribed);
                 }
-            //listazas();
             });
         }
     }, [editId]);
@@ -89,7 +88,7 @@ function AddPerson(props) {
         }).then(async (response) => {
           if (response.status === 200) {
             listazas();
-            resetModositando();
+            resetForm();
           } else if (response.status === "404") {
             setErrorMessage("Az oldal nem található");
           } else {
